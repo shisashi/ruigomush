@@ -7,3 +7,7 @@ handlers:
 - url: /dictionary.db.gz
   static_files: dictionary.db.gz
   upload: dictionary.db.gz
+
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
