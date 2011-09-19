@@ -1,2 +1,5 @@
-/gen
-/libs
+bin/
+gen/
+libs/
+.classpath
+.project
