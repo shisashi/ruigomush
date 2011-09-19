@@ -1,5 +1,6 @@
-bin/
-gen/
-libs/
-.classpath
-.project
+/bin
+/gen
+/libs
+/.classpath
+/.project
+dictionary.db.gz

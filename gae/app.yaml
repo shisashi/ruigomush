@@ -1,0 +1,9 @@
+application: ruigomush
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /dictionary.db.gz
+  static_files: dictionary.db.gz
+  upload: dictionary.db.gz
