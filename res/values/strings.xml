@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">RuigoMush</string>
+
+	<string name="search_hint">word to search</string>
+    <string name="progress_downloading">downloading</string>
+    <string name="dic_alert_title">Dictionary not exists</string>
+    <string name="dic_alert_message">download?</string>
+    <string name="dic_download_confirm">download?</string>
+    <string name="download_complete_message">download completed.</string>
+    <string name="copy_ruigo_to_clipboard_title">copy a word into clipboard?</string>
+    <string name="copied_ruigo_to_clipboard_message">copied.</string>
+    <string name="synset_not_found">synset not found.</string>
+
+	<!-- menus -->
+	<string name="longclick_hint">When long click on result button.</string>
+    <string name="menu_download_dic">update synset dictionary</string>
+    <string name="about">about</string>
+
+	<!-- common -->
+    <string name="about_url">http://www.shisashi.net/</string>
+    <string name="twitter_url">http://twitter.com/shisashi</string>
+    <string name="repository_url">https://github.com/shisashi/ruigomush</string>
+    <string name="rowlayout_url">http://stackoverflow.com/questions/549451/line-breaking-widget-layout-for-android/4937713#4937713</string>
+    <string name="micah_hainline_url">http://stackoverflow.com/users/590840/micah-hainline</string>
+</resources>
