@@ -5,12 +5,14 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
     <TextView android:text="Creator" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:paddingTop="15sp"></TextView>
-    <TextView android:text="S.Hisashi" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+    <TextView android:text="S.Hisashi" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:textAppearance="@android:style/TextAppearance.Large"></TextView>
     <TextView android:text="@string/about_url" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:autoLink="web"></TextView>
     <TextView android:text="@string/twitter_url" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:autoLink="web"></TextView>
+    <TextView android:text="synset dictionary" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:paddingTop="15sp"></TextView>
+    <TextView android:id="@+id/wordnet_ja_link" android:text=" " android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center"></TextView>
     <TextView android:text="source code" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:paddingTop="15sp"></TextView>
     <TextView android:text="@string/repository_url" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:autoLink="web"></TextView>
     <TextView android:text="RowLayout component" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:paddingTop="15sp"></TextView>
-    <TextView android:id="@+id/about_micah_hainline_link" android:text=" " android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:textAppearance="?android:attr/textAppearanceSmall"></TextView>
-    <TextView android:id="@+id/about_stackoverflow_link" android:text=" " android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:textAppearance="?android:attr/textAppearanceSmall"></TextView>
+    <TextView android:id="@+id/about_micah_hainline_link" android:text=" " android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:textAppearance="@android:style/TextAppearance.Small"></TextView>
+    <TextView android:id="@+id/about_stackoverflow_link" android:text=" " android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center" android:textAppearance="@android:style/TextAppearance.Small"></TextView>
 </LinearLayout>
