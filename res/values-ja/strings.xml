@@ -4,7 +4,7 @@
 	<string name="search_hint">類語を検索したい単語</string>
 	<string name="progress_downloading">ダウンロード中</string>
 	<string name="dic_alert_title">辞書ファイルをダウンロードしますか？</string>
-	<string name="dic_alert_message">この処理はインターネットから4MBのファイルをダウンドードし、10MBのファイルをSDカードに保存します。初回起動時には必ず必要な処理です。実行してもよろしいですか？</string>
+	<string name="dic_alert_message">この処理はインターネットから4MBのファイルをダウンロードし、10MBのファイルをSDカードに保存します。初回起動時には必ず必要な処理です。実行してもよろしいですか？</string>
 	<string name="dic_download_confirm">辞書を更新しますか？</string>
 	<string name="download_complete_message">ダウンロードが完了しました</string>
 	<string name="copy_ruigo_to_clipboard_title">選択した単語をクリップボードにコピーしますか？</string>
