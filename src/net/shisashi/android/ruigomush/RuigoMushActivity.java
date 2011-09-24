@@ -48,7 +48,7 @@ public class RuigoMushActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         edit = (EditText) findViewById(R.id.queryEditText);
-        dbHelper = new DBHelper(this);
+        dbHelper = new DBHelper();
 
         // edit で確定させたら自動で検索する
         edit.setOnEditorActionListener(new OnEditorActionListener() {
@@ -86,6 +86,12 @@ public class RuigoMushActivity extends Activity {
             // 通常起動した
             isMushroom = false;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dbHelper.closeDatabase();
     }
 
     /**
