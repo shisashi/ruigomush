@@ -6,6 +6,7 @@ import codecs
 def init(con):
     con.execute('DROP TABLE IF EXISTS synset')
     con.execute('DROP TABLE IF EXISTS wordset')
+    con.execute("CREATE TABLE android_metadata (locale text default 'en_US'); ")
     con.execute('''CREATE TABLE synset (id INTEGER PRIMARY KEY, definition TEXT, words TEXT)''')
     con.execute('''CREATE TABLE wordset (sid INTEGER, word text,
     PRIMARY KEY(sid, word),
