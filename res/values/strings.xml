@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">RuigoMush</string>
-
 	<string name="search_hint">word to search</string>
-	<string name="progress_downloading">downloading</string>
+	<string name="search_hint_short">word</string>
+	    	<string name="progress_downloading">downloading</string>
 	<string name="dic_alert_title">Dictionary not exists</string>
 	<string name="dic_alert_message">download?</string>
 	<string name="dic_download_confirm">download?</string>
