@@ -3,4 +3,8 @@
 /libs
 /.classpath
 /.project
+/project.properties
 dictionary.db.gz
+/prepare_scripts/*.csv
+/prepare_scripts/*.xml
+
