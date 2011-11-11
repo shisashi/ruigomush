@@ -23,12 +23,13 @@ public final class DBHelper {
         List<Synset> result = new ArrayList<Synset>();
         Pattern tab = Pattern.compile("\\t");
 
+        Cursor cursor = null;
         try {
-            Log.i("RUIGO", query);
+            Log.i("RUIGO", "search: " + query);
             SQLiteDatabase db = openDatabase();
             String sql = "SELECT id, definition, words FROM synset WHERE id IN (SELECT sid FROM wordset WHERE word=?);";
 
-            Cursor cursor = db.rawQuery(sql, new String[] { query });
+            cursor = db.rawQuery(sql, new String[] { query });
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
                 String definition = cursor.getString(1);
@@ -39,6 +40,11 @@ public final class DBHelper {
         }
         catch (Exception e) {
             return null;
+        }
+        finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 

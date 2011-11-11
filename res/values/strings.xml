@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">RuigoMush</string>
-	<string name="search_hint">word to search</string>
-	<string name="search_hint_short">word</string>
-	    	<string name="progress_downloading">downloading</string>
-	<string name="dic_alert_title">Dictionary not exists</string>
-	<string name="dic_alert_message">download?</string>
-	<string name="dic_download_confirm">download?</string>
-	<string name="download_complete_message">download completed.</string>
-	<string name="copy_ruigo_to_clipboard_title">copy a word into clipboard?</string>
-	<string name="copied_ruigo_to_clipboard_message">copied.</string>
-	<string name="synset_not_found">synset not found.</string>
+	<string name="app_name">Ruigo Mush</string>
+	<string name="search_hint">Japanese Word</string>
+	<string name="search_hint_short">Japanese Word</string>
+
+	<string name="progress_downloading">Downloading</string>
+	<string name="dic_alert_title">Do you want to initialize a dictionary?</string>
+	<string name="dic_alert_message">To prepare to use this app, you have to download a 4MB file from the Internet and store it onto your SD card. Do your permit to proceed?</string>
+	<string name="dic_download_confirm">Do you want to update the dictionary?</string>
+	<string name="download_complete_message">Update process was completed.</string>
+	<string name="copy_ruigo_to_clipboard_title">Do your want to copy this word into your clip board?</string>
+	<string name="copied_ruigo_to_clipboard_message">The word was copied.</string>
+	<string name="synset_not_found">Word\'s synonyms not found.</string>
 
 	<!-- menus -->
-	<string name="longclick_hint">When long click on result button.</string>
-	<string name="menu_download_dic">update synset dictionary</string>
-	<string name="about">about</string>
-
+	<string name="longclick_hint">To search by a result word, long tap a result button.</string>
+	<string name="menu_download_dic">Update the Dictionary</string>
+	<string name="about">About this App</string>
+	<string name="search">Search</string>
+	    
 	<!-- about -->
 	<string name="wordnet_ja_copyright1">Japanese Wordnet (v1.1)</string>
 	<string name="wordnet_ja_copyright2">© NICT, 2009-2010</string>

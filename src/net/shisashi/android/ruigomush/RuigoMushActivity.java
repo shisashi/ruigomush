@@ -9,28 +9,24 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.ClipboardManager;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.asolutions.widget.RowLayout;
@@ -40,45 +36,22 @@ public class RuigoMushActivity extends Activity {
     private static final String REPLACE_KEY = "replace_key";
     private static final int MENU_ID_DOWNLOAD_DIC = Menu.FIRST;
     private static final int MENU_ID_LONGCLICK_HINT = MENU_ID_DOWNLOAD_DIC + 1;
-    private static final int MENU_ID_ABOUT = MENU_ID_LONGCLICK_HINT + 2;
-    private EditText edit;
+    private static final int MENU_ID_ABOUT = MENU_ID_DOWNLOAD_DIC + 2;
+    private static final int MENU_ID_SEARCH = MENU_ID_DOWNLOAD_DIC + 3;
     private boolean isMushroom;
     private DBHelper dbHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+
         setContentView(R.layout.main);
-        edit = (EditText) findViewById(R.id.queryEditText);
         dbHelper = new DBHelper();
 
-        // edit で確定させたら自動で検索する
-        edit.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                doSearchWithEdit();
-                return true;
-            }
-        });
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
 
-        // 検索ボタンクリック
-        findViewById(R.id.searchButton).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSearchWithEdit();
-            }
-        });
-
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchManager.setOnDismissListener(new SearchManager.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-            }
-        });
-        
         if (!DBHelper.DB_FILE.exists()) {
             // 辞書がないのでDLを促す
             suggestDownloadDictionary();
@@ -86,31 +59,47 @@ public class RuigoMushActivity extends Activity {
 
         Intent intent = getIntent();
         String action = intent.getAction();
+        Log.i("RUIGO", "onCreate:" + intent);
 
-        if (action != null && ACTION_INTERCEPT.equals(action)) {
+        // 検索ボタンクリック
+        findViewById(R.id.searchButton).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
+
+        if (ACTION_INTERCEPT.equals(action)) {
             // マッシュルームアプリとして起動したので、その単語を検索する
             isMushroom = true;
             String replaceString = intent.getStringExtra(REPLACE_KEY);
-            edit.setText(replaceString);
-            edit.setSelection(replaceString.length());
-            doSearchWithEdit();
+            doSearchWithQuery(replaceString);
         }
         else if (Intent.ACTION_SEARCH.equals(action)) {
+            // 検索から起動したので、その単語を検索する
             isMushroom = false;
             doSearchWithIntent(intent);
         }
         else {
-            // 通常起動した
+            // 通常起動したときは検索を促す
             isMushroom = false;
             onSearchRequested();
         }
     }
 
-    // 検索用 Activity から呼び出されたとき   
-    @Override  
-    protected void onNewIntent(Intent intent) {  
-        doSearchWithIntent(intent);  
-    }  
+    @Override
+    public void setTitle(CharSequence title) {
+        TextView t = (TextView) findViewById(R.id.title);
+        t.setText(title);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i("RUIGO", "onNewIntent: " + intent);
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            doSearchWithIntent(intent);
+        }
+    }
 
     @Override
     protected void onStop() {
@@ -118,18 +107,12 @@ public class RuigoMushActivity extends Activity {
         dbHelper.closeDatabase();
     }
 
-    private void doSearchWithEdit() {
-        String query = edit.getText().toString();
-        doSearchWithQuery(query);
-    }
-    
     private void doSearchWithIntent(Intent intent) {
-        String query = intent.getStringExtra(SearchManager.QUERY);  
-        edit.setText(query);
-        edit.setSelection(query.length());
+        String query = intent.getStringExtra(SearchManager.QUERY);
+        Log.i("RUIGO", "doSearchWithIntent: " + intent);
         doSearchWithQuery(query);
     }
-    
+
     /**
      * UIから値を取得し、検索処理を実行し、描画処理を呼び出す
      */
@@ -148,10 +131,11 @@ public class RuigoMushActivity extends Activity {
         }
         else {
             // 検索結果あり
+            // タイトルを変更するのは類語があったときのみ
+            String appName = getString(R.string.app_name);
+            setTitle(appName + " : " + query);
             showSearchResult(searchResult);
         }
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(edit.getWindowToken(), 0);
     }
 
     /**
@@ -217,7 +201,8 @@ public class RuigoMushActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, MENU_ID_DOWNLOAD_DIC, Menu.NONE, R.string.menu_download_dic);
         menu.add(Menu.NONE, MENU_ID_LONGCLICK_HINT, Menu.NONE, R.string.longclick_hint);
-        menu.add(Menu.NONE, MENU_ID_ABOUT, Menu.NONE, R.string.about);
+        menu.add(Menu.NONE, MENU_ID_ABOUT, Menu.NONE, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
+        menu.add(Menu.NONE, MENU_ID_SEARCH, Menu.NONE, R.string.search).setIcon(android.R.drawable.ic_menu_search);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -241,6 +226,9 @@ public class RuigoMushActivity extends Activity {
             return true;
         case MENU_ID_ABOUT:
             startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        case MENU_ID_SEARCH:
+            onSearchRequested();
             return true;
         case MENU_ID_LONGCLICK_HINT:
             // 何もしない
@@ -340,9 +328,7 @@ public class RuigoMushActivity extends Activity {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vibrator.vibrate(25);
             String word = ((Button) v).getText().toString();
-            edit.setText(word);
-            edit.setSelection(word.length());
-            doSearchWithEdit();
+            doSearchWithQuery(word);
             return true;
         }
     };
