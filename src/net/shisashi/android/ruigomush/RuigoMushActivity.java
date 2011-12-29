@@ -107,6 +107,12 @@ public class RuigoMushActivity extends Activity {
         dbHelper.closeDatabase();
     }
 
+    @Override
+    protected void onDestroy() {
+        Log.i("RUIGO", "onDestroy");
+        super.onDestroy();
+    }
+
     private void doSearchWithIntent(Intent intent) {
         String query = intent.getStringExtra(SearchManager.QUERY);
         Log.i("RUIGO", "doSearchWithIntent: " + intent);
@@ -244,6 +250,7 @@ public class RuigoMushActivity extends Activity {
      *            選択された類語
      */
     private void ruigoSelected(final String text) {
+        Log.i("RUIGO", "ruigoSelected: " + text);
         if (isMushroom) {
             // マッシュルームに結果を返す
             Intent intent = new Intent();
@@ -265,7 +272,6 @@ public class RuigoMushActivity extends Activity {
                         public void onClick(DialogInterface dialog, int whichButton) {
                         }
                     }).show();
-
         }
     }
 
