@@ -41,7 +41,7 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         // TODO ダウンロードして直接辞書のdbを上書きじゃなくて、一時ファイルにDLし終えたら上書きの方がいいんじゃないだろうか
-        String urlString = "http://ruigomush.shisashi.net/dictionary.db.gz";
+        String urlString = "http://cloud.github.com/downloads/shisashi/ruigomush/dictionary.db.gz";
         DBHelper.DB_DIRECTORY.mkdirs();
 
         try {

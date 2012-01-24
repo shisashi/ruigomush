@@ -2,9 +2,47 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
     <ListView
         android:id="@+id/resultListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:visibility="invisible" />
+
+    <ScrollView
+        android:id="@+id/helpScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.webkit.WebView
+                android:id="@+id/helpWebView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" >
+            </android.webkit.WebView>
+
+            <Button
+                android:id="@+id/helpSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/search" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="0"
+        android:text="@string/help" />
+
 </FrameLayout>

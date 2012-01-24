@@ -12,7 +12,8 @@
 	<string name="copy_ruigo_to_clipboard_title">Do your want to copy this word into your clip board?</string>
 	<string name="copied_ruigo_to_clipboard_message">The word was copied.</string>
 	<string name="synset_not_found">Word\'s synonyms not found.</string>
-
+	<string name="help">help</string>
+	    
 	<!-- menus -->
 	<string name="longclick_hint">To search by a result word, long tap a result button.</string>
 	<string name="menu_download_dic">Update the Dictionary</string>

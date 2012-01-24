@@ -11,7 +11,8 @@
 	<string name="copy_ruigo_to_clipboard_title">選択した単語をクリップボードにコピーしますか？</string>
 	<string name="copied_ruigo_to_clipboard_message">クリップボードにコピーしました</string>
 	<string name="synset_not_found">類語が見つかりませんでした</string>
-
+	<string name="help">ヘルプ</string>
+	    
 	<!-- menus -->
 	<string name="longclick_hint">検索結果の単語ボタン長押しで再検索できます</string>
 	<string name="menu_download_dic">類語辞書を更新する</string>

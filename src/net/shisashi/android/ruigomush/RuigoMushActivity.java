@@ -35,11 +35,13 @@ public class RuigoMushActivity extends Activity {
     private static final String ACTION_INTERCEPT = "com.adamrocker.android.simeji.ACTION_INTERCEPT";
     private static final String REPLACE_KEY = "replace_key";
     private static final int MENU_ID_DOWNLOAD_DIC = Menu.FIRST;
-    private static final int MENU_ID_LONGCLICK_HINT = MENU_ID_DOWNLOAD_DIC + 1;
-    private static final int MENU_ID_ABOUT = MENU_ID_DOWNLOAD_DIC + 2;
+    private static final int MENU_ID_ABOUT = MENU_ID_DOWNLOAD_DIC + 1;
+    private static final int MENU_ID_HELP = MENU_ID_DOWNLOAD_DIC + 2;
     private static final int MENU_ID_SEARCH = MENU_ID_DOWNLOAD_DIC + 3;
     private boolean isMushroom;
     private DBHelper dbHelper;
+    private ListView resultListView;
+    private Button helpButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,15 @@ public class RuigoMushActivity extends Activity {
         setContentView(R.layout.main);
         dbHelper = new DBHelper();
 
+        resultListView = (ListView) findViewById(R.id.resultListView);
+        helpButton = (Button) findViewById(R.id.helpButton);
+
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
 
         if (!DBHelper.DB_FILE.exists()) {
             // 辞書がないのでDLを促す
             suggestDownloadDictionary();
+            return;
         }
 
         Intent intent = getIntent();
@@ -62,10 +68,22 @@ public class RuigoMushActivity extends Activity {
         Log.i("RUIGO", "onCreate:" + intent);
 
         // 検索ボタンクリック
-        findViewById(R.id.searchButton).setOnClickListener(new OnClickListener() {
+        {
+            OnClickListener onClick = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onSearchRequested();
+                }
+            };
+            findViewById(R.id.searchButton).setOnClickListener(onClick);
+            findViewById(R.id.helpSearchButton).setOnClickListener(onClick);
+        }
+
+        // helpを押したとき
+        helpButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSearchRequested();
+                startActivity(new Intent(RuigoMushActivity.this, HelpActivity.class));
             }
         });
 
@@ -140,6 +158,11 @@ public class RuigoMushActivity extends Activity {
             // タイトルを変更するのは類語があったときのみ
             String appName = getString(R.string.app_name);
             setTitle(appName + " : " + query);
+
+            // viewの表示切り替え
+            resultListView.setVisibility(View.VISIBLE);
+            helpButton.setVisibility(View.INVISIBLE);
+
             showSearchResult(searchResult);
         }
     }
@@ -151,8 +174,6 @@ public class RuigoMushActivity extends Activity {
      *            検索結果のリスト
      */
     private void showSearchResult(final List<Synset> searchResult) {
-        ListView resultListView = (ListView) findViewById(R.id.resultListView);
-
         BaseAdapter adapter = new BaseAdapter() {
             @Override
             public int getCount() {
@@ -206,8 +227,8 @@ public class RuigoMushActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, MENU_ID_DOWNLOAD_DIC, Menu.NONE, R.string.menu_download_dic);
-        menu.add(Menu.NONE, MENU_ID_LONGCLICK_HINT, Menu.NONE, R.string.longclick_hint);
         menu.add(Menu.NONE, MENU_ID_ABOUT, Menu.NONE, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
+        menu.add(Menu.NONE, MENU_ID_HELP, Menu.NONE, R.string.help).setIcon(android.R.drawable.ic_menu_help);
         menu.add(Menu.NONE, MENU_ID_SEARCH, Menu.NONE, R.string.search).setIcon(android.R.drawable.ic_menu_search);
         return super.onCreateOptionsMenu(menu);
     }
@@ -233,11 +254,12 @@ public class RuigoMushActivity extends Activity {
         case MENU_ID_ABOUT:
             startActivity(new Intent(this, AboutActivity.class));
             return true;
+        case MENU_ID_HELP:
+            // viewの表示切り替え
+            startActivity(new Intent(this, HelpActivity.class));
+            return true;
         case MENU_ID_SEARCH:
             onSearchRequested();
-            return true;
-        case MENU_ID_LONGCLICK_HINT:
-            // 何もしない
             return true;
         }
         return false;

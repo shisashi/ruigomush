@@ -4,10 +4,15 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
+
 - url: /dictionary.db.gz
   static_files: dictionary.db.gz
   upload: dictionary.db.gz
 
-- url: /favicon.ico
-  static_files: favicon.ico
-  upload: favicon.ico
+#- url: /.*
+#  script: app.py
+  
+
